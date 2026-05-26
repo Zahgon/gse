@@ -41,12 +41,4 @@ func main() {
 	fmt.Println("cut: ", s, len(s))
 }
 
-func load1() {
-	err := seg.LoadDictEmbed()
-	fmt.Println(err)
-	err = seg.LoadDictStr(testDict)
-	fmt.Println(err)
-
-	err = seg.LoadStopEmbed()
-	fmt.Println(err)
-}
+func load1() { _ = "STUB: not implemented"; return }

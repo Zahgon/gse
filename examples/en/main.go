@@ -52,31 +52,8 @@ func main() {
 	// example2()
 }
 
-func example2() {
-	seg, err := gse.New("zh,../../testdata/test_en_dict3.txt", "alpha")
-	fmt.Println("new gse error: ", err)
-	// var seg gse.Segmenter
-	// seg.AlphaNum = true
-	// seg.LoadDict("zh, ../../testdata/test_en_dict3.txt")
-	seg.AddToken("winter is coming!", 100, "n")
+func example2() { _ = "STUB: not implemented"; return }
 
-	freq, pos, ok := seg.Find("hello")
-	fmt.Println(freq, pos, ok)
-
-	freq, pos, ok = seg.Find("world")
-	fmt.Println(freq, pos, ok)
-
-	text := "Helloworld, winter is coming! 你好世界."
-
-	tx := seg.Cut(text)
-	fmt.Println(tx)
-
-	tx = seg.Cut(text, true)
-	fmt.Println(tx)
-
-	tx = seg.Trim(tx)
-	fmt.Println(tx)
-
-	a := seg.Analyze(tx, text)
-	fmt.Println(a)
-}
+// var seg gse.Segmenter
+// seg.AlphaNum = true
+// seg.LoadDict("zh, ../../testdata/test_en_dict3.txt")

@@ -19,8 +19,6 @@ package gse
 
 import (
 	"regexp"
-
-	"github.com/go-ego/gse/hmm"
 )
 
 const (
@@ -32,22 +30,20 @@ const (
 
 // GetVersion get the version of gse
 func GetVersion() string {
-	return Version
+	_ = "STUB: not implemented"
+
+	// Prob define the hmm model struct
+	return ""
 }
 
-// Prob define the hmm model struct
 type Prob struct {
 	B, E, M, S map[rune]float64
 }
 
 // New return a new gse segmenter
 func New(files ...string) (seg Segmenter, err error) {
-	if len(files) > 1 && files[1] == "alpha" {
-		seg.AlphaNum = true
-	}
-
-	err = seg.LoadDict(files...)
-	return
+	_ = "STUB: not implemented"
+	return *new(Segmenter), nil
 }
 
 // Cut cuts a str into words using accurate mode.
@@ -65,59 +61,32 @@ func New(files ...string) (seg Segmenter, err error) {
 // seg.Cut(text, true):
 //
 //	use cut dag and hmm mode
-func (seg *Segmenter) Cut(str string, hmm ...bool) []string {
-	if len(hmm) <= 0 {
-		return seg.Slice(str)
-		// return seg.cutDAGNoHMM(str)
-	}
+func (seg *Segmenter) Cut(str string, hmm ...bool) []string { _ = "STUB: not implemented"; return nil }
 
-	if len(hmm) > 0 && !hmm[0] {
-		return seg.cutDAGNoHMM(str)
-	}
-
-	return seg.cutDAG(str)
-}
+// return seg.cutDAGNoHMM(str)
 
 // CutSearch cuts str into words using search engine mode.
 func (seg *Segmenter) CutSearch(str string, hmm ...bool) []string {
-	if len(hmm) <= 0 {
-		return seg.Slice(str, true)
-	}
-
-	return seg.cutForSearch(str, hmm...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CutAll cuts a str into words using full mode.
-func (seg *Segmenter) CutAll(str string) []string {
-	return seg.cutAll(str)
-}
+func (seg *Segmenter) CutAll(str string) []string { _ = "STUB: not implemented"; return nil }
 
 // CutDAG cut string with DAG use hmm and regexp
 func (seg *Segmenter) CutDAG(str string, reg ...*regexp.Regexp) []string {
-	return seg.cutDAG(str, reg...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CutDAGNoHMM cut string with DAG not use hmm
-func (seg *Segmenter) CutDAGNoHMM(str string) []string {
-	return seg.cutDAGNoHMM(str)
-}
+func (seg *Segmenter) CutDAGNoHMM(str string) []string { _ = "STUB: not implemented"; return nil }
 
 // CutStr cut []string with Cut return string
 func (seg *Segmenter) CutStr(str []string, separator ...string) (r string) {
-	sep := " "
-	if len(separator) > 0 {
-		sep = separator[0]
-	}
-
-	for i := 0; i < len(str); i++ {
-		if i == len(str)-1 {
-			r += str[i]
-		} else {
-			r += str[i] + sep
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // LoadModel load the hmm model (default is Chinese char)
@@ -125,34 +94,33 @@ func (seg *Segmenter) CutStr(str []string, separator ...string) (r string) {
 // Use the user's model:
 //
 //	seg.LoadModel(B, E, M, S map[rune]float64)
-func (seg *Segmenter) LoadModel(prob ...map[rune]float64) {
-	hmm.LoadModel(prob...)
-}
+func (seg *Segmenter) LoadModel(prob ...map[rune]float64) { _ = "STUB: not implemented"; return }
 
 // HMMCut cut sentence string use HMM with Viterbi
 func (seg *Segmenter) HMMCut(str string, reg ...*regexp.Regexp) []string {
+	_ = "STUB: not implemented"
 	// hmm.LoadModel(prob...)
-	return hmm.Cut(str, reg...)
+	return nil
 }
 
 // HMMCutMod cut sentence string use HMM with Viterbi
 func (seg *Segmenter) HMMCutMod(str string, prob ...map[rune]float64) []string {
-	hmm.LoadModel(prob...)
-	return hmm.Cut(str)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Slice use modeSegment segment return []string
 // using search mode if searchMode is true
 func (seg *Segmenter) Slice(s string, searchMode ...bool) []string {
-	segs := seg.ModeSegment([]byte(s), searchMode...)
-	return ToSlice(segs, searchMode...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Slice use modeSegment segment return string
 // using search mode if searchMode is true
 func (seg *Segmenter) String(s string, searchMode ...bool) string {
-	segs := seg.ModeSegment([]byte(s), searchMode...)
-	return ToString(segs, searchMode...)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // SegPos type a POS struct
@@ -162,29 +130,12 @@ type SegPos struct {
 
 // Pos return text and pos array
 func (seg *Segmenter) Pos(s string, searchMode ...bool) []SegPos {
-	sa := seg.ModeSegment([]byte(s), searchMode...)
-	return ToPos(sa, searchMode...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PosStr cut []SegPos with Pos return string
 func (seg *Segmenter) PosStr(str []SegPos, separator ...string) (r string) {
-	sep := " "
-	if len(separator) > 0 {
-		sep = separator[0]
-	}
-
-	for i := 0; i < len(str); i++ {
-		add := str[i].Text
-		if !seg.SkipPos {
-			add += "/" + str[i].Pos
-		}
-
-		if i == len(str)-1 {
-			r += add
-		} else {
-			r += add + sep
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return ""
 }

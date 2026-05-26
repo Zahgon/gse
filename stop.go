@@ -14,95 +14,30 @@
 
 package gse
 
-import (
-	"bufio"
-	"log"
-	"os"
-	"path"
-	"strings"
-)
-
 // StopWordMap the default stop words.
 var StopWordMap = map[string]bool{
 	" ": true,
 }
 
 // LoadStopArr load stop word by []string
-func (seg *Segmenter) LoadStopArr(dict []string) {
-	if seg.StopWordMap == nil {
-		seg.StopWordMap = make(map[string]bool)
-	}
-
-	for _, d := range dict {
-		seg.StopWordMap[d] = true
-	}
-}
+func (seg *Segmenter) LoadStopArr(dict []string) { _ = "STUB: not implemented"; return }
 
 // LoadStop load stop word files add token to map
-func (seg *Segmenter) LoadStop(files ...string) error {
-	if seg.StopWordMap == nil {
-		seg.StopWordMap = make(map[string]bool)
-	}
-
-	dictDir := path.Join(path.Dir(seg.GetCurrentFilePath()), "data")
-	if len(files) <= 0 {
-		dictPath := path.Join(dictDir, "dict/zh/stop_word.txt")
-		files = append(files, dictPath)
-	}
-
-	name := strings.Split(files[0], ", ")
-	if name[0] == "zh" {
-		name[0] = path.Join(dictDir, "dict/zh/stop_tokens.txt")
-	}
-
-	for i := 0; i < len(name); i++ {
-		if !seg.SkipLog {
-			log.Printf("Load the stop word dictionary: \"%s\" ", name[i])
-		}
-
-		file, err := os.Open(name[i])
-		if err != nil {
-			log.Printf("Could not load dictionaries: \"%s\", %v \n", name[i], err)
-			return err
-		}
-		defer file.Close()
-
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			text := scanner.Text()
-			if text != "" {
-				seg.StopWordMap[text] = true
-			}
-		}
-	}
-
-	return nil
-}
+func (seg *Segmenter) LoadStop(files ...string) error { _ = "STUB: not implemented"; return nil }
 
 // AddStop add a token to the StopWord dictionary.
-func (seg *Segmenter) AddStop(text string) {
-	seg.StopWordMap[text] = true
-}
+func (seg *Segmenter) AddStop(text string) { _ = "STUB: not implemented"; return }
 
 // AddStopArr add array stop token to stop dictionaries
-func (seg *Segmenter) AddStopArr(text ...string) {
-	seg.LoadStopArr(text)
-}
+func (seg *Segmenter) AddStopArr(text ...string) { _ = "STUB: not implemented"; return }
 
 // RemoveStop remove a token from the StopWord dictionary.
-func (seg *Segmenter) RemoveStop(text string) {
-	delete(seg.StopWordMap, text)
-}
+func (seg *Segmenter) RemoveStop(text string) { _ = "STUB: not implemented"; return }
 
 // EmptyStop empty the stop dictionary
-func (seg *Segmenter) EmptyStop() error {
-	seg.StopWordMap = nil
-	return nil
-}
+func (seg *Segmenter) EmptyStop() error { _ = "STUB: not implemented"; return nil }
 
 // IsStop check the word is a stop word.
-func (seg *Segmenter) IsStop(s string) bool {
-	_, ok := seg.StopWordMap[s]
-	return ok
-	// return StopWordMap[s]
-}
+func (seg *Segmenter) IsStop(s string) bool { _ = "STUB: not implemented"; return false }
+
+// return StopWordMap[s]

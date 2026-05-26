@@ -47,38 +47,16 @@ type StopWord struct {
 }
 
 // AddStop add a token to StopWord dictionary.
-func (s *StopWord) AddStop(text string) {
-	s.stopWordMap[text] = true
-}
+func (s *StopWord) AddStop(text string) { _ = "STUB: not implemented"; return }
 
 // RemoveStop remove a token from StopWord dictionary.
-func (s *StopWord) RemoveStop(text string) {
-	delete(s.stopWordMap, text)
-}
+func (s *StopWord) RemoveStop(text string) { _ = "STUB: not implemented"; return }
 
 // NewStopWord create a new StopWord with the default stop words.
-func NewStopWord() *StopWord {
-	s := new(StopWord)
-	s.stopWordMap = StopWordMap
-	return s
-}
+func NewStopWord() *StopWord { _ = "STUB: not implemented"; return nil }
 
 // IsStopWord check the word is a stop word
-func (s *StopWord) IsStopWord(word string) bool {
-	_, ok := s.stopWordMap[word]
-	return ok
-}
+func (s *StopWord) IsStopWord(word string) bool { _ = "STUB: not implemented"; return false }
 
 // LoadDict load the idf stop dictionary
-func (s *StopWord) LoadDict(files ...string) error {
-	err := s.seg.LoadStop(files...)
-	if err != nil {
-		return err
-	}
-
-	for k, v := range s.seg.StopWordMap {
-		StopWordMap[k] = v
-	}
-
-	return nil
-}
+func (s *StopWord) LoadDict(files ...string) error { _ = "STUB: not implemented"; return nil }

@@ -15,8 +15,6 @@
 package pos
 
 import (
-	"math"
-
 	"github.com/go-ego/gse"
 )
 
@@ -32,34 +30,24 @@ type Dict struct {
 
 // AddToken add new text to token
 func (d *Dict) AddToken(text string, freq float64, pos ...string) error {
-	return d.Seg.AddToken(text, freq, pos...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RemoveToken remove the token in the dict
-func (d *Dict) RemoveToken(text string) error {
-	return d.Seg.RemoveToken(text)
-}
+func (d *Dict) RemoveToken(text string) error { _ = "STUB: not implemented"; return nil }
 
-func (d *Dict) updateLogTotal() {
-	d.logTotal = math.Log(d.total)
-}
+func (d *Dict) updateLogTotal() { _ = "STUB: not implemented"; return }
 
 // Freq find the word return the word's freq, pos and existence
 func (d *Dict) Freq(key string) (float64, string, bool) {
-	return d.Seg.Find(key)
+	_ = "STUB: not implemented"
+	return 0,
+
+		// Pos find the key return the POS and existence
+		"", false
 }
 
-// Pos find the key return the POS and existence
-func (d *Dict) Pos(key string) (string, bool) {
-	value, _, _ := d.Seg.Value(key)
-	if value == 0 {
-		return "", false
-	}
+func (d *Dict) Pos(key string) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
-	pos := d.Seg.Dict.Tokens[value].Pos()
-	return pos, true
-}
-
-func (d *Dict) loadDict(files ...string) error {
-	return d.Seg.LoadDict(files...)
-}
+func (d *Dict) loadDict(files ...string) error { _ = "STUB: not implemented"; return nil }

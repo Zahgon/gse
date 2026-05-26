@@ -14,259 +14,108 @@
 
 package gse
 
-import (
-	"regexp"
-	"strings"
-	"unicode"
-	"unicode/utf8"
-)
-
-func notPunct(ru []rune) bool {
-	for i := 0; i < len(ru); i++ {
-		if !unicode.IsSpace(ru[i]) && !unicode.IsPunct(ru[i]) {
-			return true
-		}
-	}
-
-	return false
-}
+func notPunct(ru []rune) bool { _ = "STUB: not implemented"; return false }
 
 // TrimPunct trim []string exclude space and punct
-func (seg *Segmenter) TrimPunct(s []string) (r []string) {
-	for i := 0; i < len(s); i++ {
-		ru := []rune(s[i])
-		if len(ru) > 0 {
-			r0 := ru[0]
-			if !unicode.IsSpace(r0) && !unicode.IsPunct(r0) {
-				r = append(r, s[i])
-			} else if len(ru) > 1 && notPunct(ru) {
-				r = append(r, s[i])
-			}
-		}
-	}
-
-	return
-}
+func (seg *Segmenter) TrimPunct(s []string) (r []string) { _ = "STUB: not implemented"; return nil }
 
 // TrimPosPunct trim SegPos not space and punct
 func (seg *Segmenter) TrimPosPunct(se []SegPos) (re []SegPos) {
-	for i := 0; i < len(se); i++ {
-		if !seg.NotStop && seg.IsStop(se[i].Text) {
-			se[i].Text = ""
-		}
-
-		if se[i].Text != "" && len(se[i].Text) > 0 {
-			ru := []rune(se[i].Text)[0]
-			if !unicode.IsSpace(ru) && !unicode.IsPunct(ru) {
-				re = append(re, se[i])
-			}
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TrimWithPos trim some seg with pos
 func (seg *Segmenter) TrimWithPos(se []SegPos, pos ...string) (re []SegPos) {
-	for h := 0; h < len(pos); h++ {
-		if h > 0 {
-			se = re
-			re = nil
-		}
-
-		for i := 0; i < len(se); i++ {
-			if se[i].Pos != pos[h] {
-				re = append(re, se[i])
-			}
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Stop trim []string stop word
-func (seg *Segmenter) Stop(s []string) (r []string) {
-	for _, v := range s {
-		if !seg.IsStop(v) && v != "" {
-			r = append(r, v)
-		}
-	}
-	return
-}
+func (seg *Segmenter) Stop(s []string) (r []string) { _ = "STUB: not implemented"; return nil }
 
 // Trim trim []string exclude symbol, space and punct
-func (seg *Segmenter) Trim(s []string) (r []string) {
-	for i := 0; i < len(s); i++ {
-		si := FilterSymbol(s[i])
-		if !seg.NotStop && seg.IsStop(si) {
-			si = ""
-		}
-
-		if si != "" {
-			r = append(r, si)
-		}
-	}
-
-	return
-}
+func (seg *Segmenter) Trim(s []string) (r []string) { _ = "STUB: not implemented"; return nil }
 
 // TrimSymbol trim []string exclude symbol, space and punct
-func (seg *Segmenter) TrimSymbol(s []string) (r []string) {
-	for i := 0; i < len(s); i++ {
-		si := FilterSymbol(s[i])
-		if si != "" {
-			r = append(r, si)
-		}
-	}
-
-	return
-}
+func (seg *Segmenter) TrimSymbol(s []string) (r []string) { _ = "STUB: not implemented"; return nil }
 
 // TrimPos trim SegPos not symbol, space and punct
-func (seg *Segmenter) TrimPos(s []SegPos) (r []SegPos) {
-	for i := 0; i < len(s); i++ {
-		si := FilterSymbol(s[i].Text)
-		if !seg.NotStop && seg.IsStop(si) {
-			si = ""
-		}
-
-		if si != "" {
-			r = append(r, s[i])
-		}
-	}
-
-	return
-}
+func (seg *Segmenter) TrimPos(s []SegPos) (r []SegPos) { _ = "STUB: not implemented"; return nil }
 
 // CutStop cut string and tirm stop
 func (seg *Segmenter) CutStop(str string, hmm ...bool) []string {
-	return seg.Stop(seg.Cut(str, hmm...))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CutTrim cut string and tirm
 func (seg *Segmenter) CutTrim(str string, hmm ...bool) []string {
-	s := seg.Cut(str, hmm...)
-	return seg.Trim(s)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PosTrim cut string pos and trim
 func (seg *Segmenter) PosTrim(str string, search bool, pos ...string) []SegPos {
-	p := seg.Pos(str, search)
-	p = seg.TrimWithPos(p, pos...)
-	return seg.TrimPos(p)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PosTrimArr cut string return pos.Text []string
 func (seg *Segmenter) PosTrimArr(str string, search bool, pos ...string) (re []string) {
-	p1 := seg.PosTrim(str, search, pos...)
-	for i := 0; i < len(p1); i++ {
-		re = append(re, p1[i].Text)
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PosTrimStr cut string return pos.Text string
 func (seg *Segmenter) PosTrimStr(str string, search bool, pos ...string) string {
-	pa := seg.PosTrimArr(str, search, pos...)
-	return seg.CutStr(pa)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // CutTrimHtml cut string trim html and symbol return []string
 func (seg *Segmenter) CutTrimHtml(str string, hmm ...bool) []string {
-	str = FilterHtml(str)
-	s := seg.Cut(str, hmm...)
-	return seg.TrimSymbol(s)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CutTrimHtmls cut string trim html and symbol return string
 func (seg *Segmenter) CutTrimHtmls(str string, hmm ...bool) string {
-	s := seg.CutTrimHtml(str, hmm...)
-	return seg.CutStr(s, " ")
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // CutUrl cut url string trim symbol return []string
 func (seg *Segmenter) CutUrl(str string, num ...bool) []string {
-	if len(num) <= 0 {
-		// seg.Num = true
-		str = SplitNums(str)
-	}
-	s := seg.Cut(str)
-	return seg.TrimSymbol(s)
+	_ = "STUB: not implemented"
+
+	// seg.Num = true
+	return nil
 }
 
 // CutUrls cut url string trim symbol return string
-func (seg *Segmenter) CutUrls(str string, num ...bool) string {
-	return seg.CutStr(seg.CutUrl(str, num...), " ")
-}
+func (seg *Segmenter) CutUrls(str string, num ...bool) string { _ = "STUB: not implemented"; return "" }
 
 // SplitNum cut string by num to []string
-func SplitNum(text string) []string {
-	r := regexp.MustCompile(`\d+|\D+`)
-	return r.FindAllString(text, -1)
-}
+func SplitNum(text string) []string { _ = "STUB: not implemented"; return nil }
 
 // SplitNums cut string by num to string
-func SplitNums(text string) string {
-	return strings.Join(SplitNum(text), " ")
-}
+func SplitNums(text string) string { _ = "STUB: not implemented"; return "" }
 
 // FilterEmoji filter the emoji
-func FilterEmoji(text string) (new string) {
-	for _, value := range text {
-		_, size := utf8.DecodeRuneInString(string(value))
-		if size <= 3 {
-			new += string(value)
-		}
-	}
-
-	return
-}
+func FilterEmoji(text string) (new string) { _ = "STUB: not implemented"; return "" }
 
 // FilterSymbol filter the symbol
-func FilterSymbol(text string) (new string) {
-	for _, value := range text {
-		if !unicode.IsSymbol(value) &&
-			!unicode.IsSpace(value) && !unicode.IsPunct(value) {
-			new += string(value)
-		}
-	}
-
-	return
-}
+func FilterSymbol(text string) (new string) { _ = "STUB: not implemented"; return "" }
 
 // FilterHtml filter the html tag
-func FilterHtml(text string) string {
-	regHtml := regexp.MustCompile(`(?U)\<[^>]*[\w|=|"]+\>`)
-	text = regHtml.ReplaceAllString(text, "")
-	return text
-}
+func FilterHtml(text string) string { _ = "STUB: not implemented"; return "" }
 
 // FilterLang filter the language
-func FilterLang(text, lang string) (new string) {
-	for _, value := range text {
-		if unicode.IsLetter(value) || unicode.Is(unicode.Scripts[lang], value) {
-			new += string(value)
-		}
-	}
-
-	return
-}
+func FilterLang(text, lang string) (new string) { _ = "STUB: not implemented"; return "" }
 
 // Range range text to []string
-func Range(text string) (new []string) {
-	for _, value := range text {
-		new = append(new, string(value))
-	}
-
-	return
-}
+func Range(text string) (new []string) { _ = "STUB: not implemented"; return nil }
 
 // RangeText range text to string
-func RangeText(text string) (new string) {
-	for _, value := range text {
-		new += string(value) + " "
-	}
-
-	return
-}
+func RangeText(text string) (new string) { _ = "STUB: not implemented"; return "" }

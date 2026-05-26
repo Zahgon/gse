@@ -1,61 +1,16 @@
 package pos
 
-import "fmt"
-
 type tag uint16
 
-func (t tag) position() string {
-	switch t / 100 {
-	case 4:
-		return "S"
-	case 3:
-		return "M"
-	case 2:
-		return "E"
-	case 1:
-		return "B"
-	default:
-		return ""
-	}
-}
+func (t tag) position() string { _ = "STUB: not implemented"; return "" }
 
-func (t tag) pos() string {
-	return poss[t%100]
-}
+func (t tag) pos() string { _ = "STUB: not implemented"; return "" }
 
-func newTag(position, pos string) (tag, error) {
-	positionIndex := -1
-	posIndex := -1
-	for i, p := range positions {
-		if position == p {
-			positionIndex = (i + 1) * 100
-			break
-		}
-	}
-
-	for i, p := range poss {
-		if pos == p {
-			posIndex = i
-			break
-		}
-	}
-
-	if positionIndex < 0 || posIndex < 0 {
-		return 0, fmt.Errorf("Failed to convert %s %s to Tag", position, pos)
-	}
-
-	return tag(positionIndex + posIndex), nil
-}
+func newTag(position, pos string) (tag, error) { _ = "STUB: not implemented"; return *new(tag), nil }
 
 type charStateTabMap map[rune][]uint16
 
-func (m charStateTabMap) get(key rune) []uint16 {
-	if value, ok := m[key]; ok {
-		return value
-	}
-
-	return probTransKeys
-}
+func (m charStateTabMap) get(key rune) []uint16 { _ = "STUB: not implemented"; return nil }
 
 var (
 	charStateTab = charStateTabMap{

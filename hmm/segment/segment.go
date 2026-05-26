@@ -8,29 +8,23 @@ type Segment struct {
 
 // GetText return the segment's text.
 func (s Segment) GetText() string {
-	return s.Text
+	_ = "STUB: not implemented"
+
+	// GetWeight return the segment's weight.
+	return ""
 }
 
-// GetWeight return the segment's weight.
 func (s Segment) GetWeight() float64 {
-	return s.Weight
+	_ = "STUB: not implemented"
+
+	// Segments type a slice of Segment.
+	return 0
 }
 
-// Segments type a slice of Segment.
 type Segments []Segment
 
-func (ss Segments) Len() int {
-	return len(ss)
-}
+func (ss Segments) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (ss Segments) Less(i, j int) bool {
-	if ss[i].Weight == ss[j].Weight {
-		return ss[i].Text < ss[j].Text
-	}
+func (ss Segments) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
-	return ss[i].Weight < ss[j].Weight
-}
-
-func (ss Segments) Swap(i, j int) {
-	ss[i], ss[j] = ss[j], ss[i]
-}
+func (ss Segments) Swap(i, j int) { _ = "STUB: not implemented"; return }

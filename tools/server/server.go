@@ -29,12 +29,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"runtime"
-	"strconv"
 
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-ego/gse"
@@ -76,47 +73,16 @@ type Resp struct {
 
 // JsonRpcServer start json rpc server
 func JsonRpcServer(w http.ResponseWriter, req *http.Request) {
+	_ = "STUB: not implemented"
 	// 得到要分词的文本
-	text := req.URL.Query().Get("text")
-	if text == "" {
-		text = req.PostFormValue("text")
-	}
-
-	if *hmm {
-		segs := seg.Cut(text, true)
-		response, _ := json.Marshal(&JsonResp{Seg: segs})
-
-		w.Header().Set("Content-Type", "application/json")
-		io.WriteString(w, string(response))
-
-		return
-	}
-
-	// 分词
-	segs := seg.Segment([]byte(text))
-
-	// 整理为输出格式
-	ss := []*Segment{}
-	for _, segment := range segs {
-		ss = append(ss, &Segment{
-			Text: segment.Token().Text(), Pos: segment.Token().Pos()})
-	}
-	response, _ := json.Marshal(&JsonResponse{Segments: ss})
-
-	w.Header().Set("Content-Type", "application/json")
-	io.WriteString(w, string(response))
+	return
 }
 
-func addToken(w http.ResponseWriter, req *http.Request) {
-	text := req.URL.Query().Get("text")
-	freq, _ := strconv.ParseFloat(req.URL.Query().Get("freq"), 64)
-	pos := req.URL.Query().Get("pos")
-	seg.AddTokenForce(text, freq, pos)
+// 分词
 
-	response, _ := json.Marshal(&Resp{Code: 200, Text: "ok"})
-	w.Header().Set("Content-Type", "application/json")
-	io.WriteString(w, string(response))
-}
+// 整理为输出格式
+
+func addToken(w http.ResponseWriter, req *http.Request) { _ = "STUB: not implemented"; return }
 
 func main() {
 	flag.Parse()

@@ -3,10 +3,7 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
 	"log"
-	"os"
 	"runtime"
 	"time"
 
@@ -21,35 +18,15 @@ var (
 	numRuns    = 50
 )
 
-func worker() {
-	for line := range task {
-		seg.Segment(line)
-	}
-	done <- true
-}
+func worker() { _ = "STUB: not implemented"; return }
 
 func openBook() (int, [][]byte) {
+	_ = "STUB: not implemented"
 	// 打开将要分词的文件
-	file, err := os.Open("../../testdata/zh/bailuyuan.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	// 逐行读入
-	scanner := bufio.NewScanner(file)
-	size := 0
-	lines := [][]byte{}
-	for scanner.Scan() {
-		var text string
-		fmt.Sscanf(scanner.Text(), "%s", &text)
-		content := []byte(text)
-		size += len(content)
-		lines = append(lines, content)
-	}
-
-	return size, lines
+	return 0, nil
 }
+
+// 逐行读入
 
 func main() {
 	// 将线程数设置为CPU数

@@ -31,119 +31,16 @@ var (
 // }
 
 // LoadModel load the HMM model
-func LoadModel(prob ...map[rune]float64) {
-	if len(prob) > 3 {
-		probEmit['B'] = prob[0]
-		probEmit['E'] = prob[1]
-		probEmit['M'] = prob[2]
-		probEmit['S'] = prob[3]
+func LoadModel(prob ...map[rune]float64) { _ = "STUB: not implemented"; return }
 
-		return
-	}
-
-	loadDefEmit()
-}
-
-func internalCut(text string) []string {
-	result := make([]string, 0, 10)
-
-	runes := []rune(text)
-	_, posList := Viterbi(runes, []byte{'B', 'M', 'E', 'S'})
-	begin, next := 0, 0
-
-	for i, char := range runes {
-		pos := posList[i]
-		switch pos {
-		case 'B':
-			begin = i
-		case 'E':
-			result = append(result, string(runes[begin:i+1]))
-			next = i + 1
-		case 'S':
-			result = append(result, string(char))
-			next = i + 1
-		}
-	}
-
-	if next < len(runes) {
-		result = append(result, string(runes[next:]))
-	}
-
-	return result
-}
+func internalCut(text string) []string { _ = "STUB: not implemented"; return nil }
 
 // Cut cuts text to words using HMM with Viterbi algorithm
-func Cut(text string, reg ...*regexp.Regexp) []string {
-	result := make([]string, 0, 10)
+func Cut(text string, reg ...*regexp.Regexp) []string { _ = "STUB: not implemented"; return nil }
 
-	var (
-		cuts      string
-		cutLoc    []int
-		nonCutLoc []int
-	)
-
-	for {
-		// find(text, cuts, cutLoc, nonCutLoc)
-		if len(reg) > 1 {
-			cutLoc = reg[1].FindStringIndex(text)
-		} else {
-			cutLoc = regHan.FindStringIndex(text)
-		}
-
-		if cutLoc == nil {
-			if len(text) == 0 {
-				break
-			}
-		} else if cutLoc[0] == 0 {
-			cuts = text[cutLoc[0]:cutLoc[1]]
-			text = text[cutLoc[1]:]
-			result = append(result, internalCut(cuts)...)
-			continue
-		}
-
-		if len(reg) > 0 {
-			nonCutLoc = reg[0].FindStringIndex(text)
-		} else {
-			nonCutLoc = regSkip.FindStringIndex(text)
-		}
-		if nonCutLoc == nil {
-			if len(text) == 0 {
-				break
-			}
-		} else if nonCutLoc[0] == 0 {
-			nonCuts := text[nonCutLoc[0]:nonCutLoc[1]]
-			text = text[nonCutLoc[1]:]
-			if nonCuts != "" {
-				result = append(result, nonCuts)
-				continue
-			}
-		}
-
-		loc := locJudge(text, cutLoc, nonCutLoc)
-		if loc == nil {
-			result = append(result, text)
-			break
-		}
-
-		result = append(result, text[:loc[0]])
-		text = text[loc[0]:]
-	}
-
-	return result
-}
+// find(text, cuts, cutLoc, nonCutLoc)
 
 func locJudge(str string, cutLoc, nonCutLoc []int) (loc []int) {
-	if cutLoc == nil && nonCutLoc == nil {
-		if len(str) > 0 {
-			return nil
-		}
-	} else if cutLoc == nil {
-		loc = nonCutLoc
-	} else if nonCutLoc == nil || cutLoc[0] < nonCutLoc[0] {
-		loc = cutLoc
-	} else {
-		loc = nonCutLoc
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -15,8 +15,6 @@
 package extracker
 
 import (
-	"sort"
-
 	"github.com/go-ego/gse"
 	"github.com/go-ego/gse/hmm/relevance"
 	"github.com/go-ego/gse/hmm/segment"
@@ -34,31 +32,22 @@ type TagExtracter struct {
 
 // WithGse register the gse segmenter
 func (t *TagExtracter) WithGse(segs gse.Segmenter) {
-	t.seg = segs
+	_ = "STUB: not implemented"
+
+	// LoadDict load and create a new dictionary from the file
+	return
 }
 
-// LoadDict load and create a new dictionary from the file
-func (t *TagExtracter) LoadDict(fileName ...string) error {
-	return t.seg.LoadDict(fileName...)
-}
+func (t *TagExtracter) LoadDict(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadIdf load and create a new Idf dictionary from the file.
-func (t *TagExtracter) LoadIdf(fileName ...string) error {
-	t.Relevance = relevance.NewIdf()
-	return t.Relevance.LoadDict(fileName...)
-}
+func (t *TagExtracter) LoadIdf(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadIdfStr load and create a new Idf dictionary from the string.
-func (t *TagExtracter) LoadIdfStr(str string) error {
-	t.Relevance = relevance.NewIdf()
-	return t.Relevance.LoadDictStr(str)
-}
+func (t *TagExtracter) LoadIdfStr(str string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadTFIDF load and create a new TFIDF dictionary from the file.
-func (t *TagExtracter) LoadTFIDF(fileName ...string) error {
-	t.Relevance = relevance.NewTFIDF()
-	return t.Relevance.LoadDict(fileName...)
-}
+func (t *TagExtracter) LoadTFIDF(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadBM25 load and create a new BM25 dictionary from the file.
 // params setting: the k1 and b to defind for calcluate bm25
@@ -76,55 +65,31 @@ func (t *TagExtracter) LoadTFIDF(fileName ...string) error {
 //			Number   float64
 //	}
 func (t *TagExtracter) LoadBM25(setting *types.BM25Setting, fileList []*types.LoadDictFile) (err error) {
-	t.Relevance = relevance.NewBM25(setting)
-	// load dict file and corpus file
-	dictBM25 := []string{}
-	corpusBM25 := []string{}
-
-	// Distinguishing dictionary types
-	for _, v := range fileList {
-		switch v.FileType {
-
-		case types.LoadDictCorpus:
-			corpusBM25 = append(corpusBM25, v.FilePath)
-
-		case types.LoadDictTypeBM25:
-			dictBM25 = append(dictBM25, v.FilePath)
-		}
-	}
-
-	err = t.Relevance.LoadCorpus(corpusBM25...)
-	if err != nil {
-		return
-	}
-
-	return t.Relevance.LoadDict(dictBM25...)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// load dict file and corpus file
+
+// Distinguishing dictionary types
 
 // LoadStopWords load and create a new StopWord dictionary from the file.
 func (t *TagExtracter) LoadStopWords(fileName ...string) error {
-	return t.Relevance.LoadStopWord(fileName...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExtractTags extract the topK keywords from text.
 func (t *TagExtracter) ExtractTags(text string, topK int) (tags segment.Segments) {
-	if t.Relevance == nil {
-		// If no correlation algorithm, we will set the idf for default.
-		t.Relevance = relevance.NewIdf()
-	}
+	_ = "STUB: not implemented"
+	return *
 
-	// handler text to construct segment with weight
-	ws := t.Relevance.ConstructSeg(text)
-
-	// sort by weight desc
-	sort.Sort(sort.Reverse(ws))
-
-	// choose the top keywords if length of weightSeg bigger than topK
-	if len(ws) > topK {
-		tags = ws[:topK]
-		return
-	}
-
-	tags = ws
-	return
+	// If no correlation algorithm, we will set the idf for default.
+	new(segment.Segments)
 }
+
+// handler text to construct segment with weight
+
+// sort by weight desc
+
+// choose the top keywords if length of weightSeg bigger than topK

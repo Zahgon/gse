@@ -15,12 +15,8 @@
 package relevance
 
 import (
-	"strings"
-	"unicode/utf8"
-
 	"github.com/go-ego/gse"
 	"github.com/go-ego/gse/hmm/segment"
-	"github.com/go-ego/gse/hmm/stopwords"
 	"github.com/go-ego/gse/types"
 )
 
@@ -53,152 +49,64 @@ type BM25 struct {
 
 // AddToken add a new word with TFIDF into the dictionary.
 func (bm25 *BM25) AddToken(text string, freq float64, pos ...string) error {
-	err := bm25.Seg.AddToken(text, freq, pos...)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LoadStopWord load stop word for TFIDF
-func (bm25 *BM25) LoadStopWord(fileName ...string) error {
-	return bm25.StopWord.LoadDict(fileName...)
-}
+func (bm25 *BM25) LoadStopWord(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadDict load dict for TFIDF seg
-func (bm25 *BM25) LoadDict(files ...string) error {
-	if len(files) <= 0 {
-		// bm25 needs tf and idf value , so we just get the tfidf path and loading it.
-		files = bm25.Seg.GetTfIdfPath(files...)
-	}
+func (bm25 *BM25) LoadDict(files ...string) error { _ = "STUB: not implemented"; return nil }
 
-	dictFiles := make([]*types.LoadDictFile, len(files))
-	for i, v := range files {
-		dictFiles[i] = &types.LoadDictFile{
-			FilePath: v,
-			FileType: types.LoadDictTypeBM25,
-		}
-	}
-
-	return bm25.Seg.LoadTFIDFDict(dictFiles)
-}
+// bm25 needs tf and idf value , so we just get the tfidf path and loading it.
 
 // LoadDictStr load dict for BM25 seg
-func (bm25 *BM25) LoadDictStr(dictStr string) error {
-	dictFile := &types.LoadDictFile{
-		FilePath: dictStr,
-		FileType: types.LoadDictTypeBM25,
-	}
-	return bm25.Seg.LoadTFIDFDictStr(dictFile)
-}
+func (bm25 *BM25) LoadDictStr(dictStr string) error { _ = "STUB: not implemented"; return nil }
 
 // Freq return the BM25 of the word
 // BM25 need TF and IDF value, so we just use FindTFIDF func
 func (bm25 *BM25) Freq(key string) (float64, interface{}, bool) {
-	return bm25.Seg.FindTFIDF(key)
+	_ = "STUB: not implemented"
+	return 0, nil, false
+
+	// NumTokens return the BM25 tokens' num
 }
 
-// NumTokens return the BM25 tokens' num
-func (bm25 *BM25) NumTokens() int {
-	return bm25.Seg.Dict.NumTokens()
-}
+func (bm25 *BM25) NumTokens() int { _ = "STUB: not implemented"; return 0 }
 
 // TotalFreq return the BM25 total frequency
-func (bm25 *BM25) TotalFreq() float64 {
-	return bm25.Seg.Dict.TotalFreq()
-}
+func (bm25 *BM25) TotalFreq() float64 { _ = "STUB: not implemented"; return 0 }
 
 // FreqMap return the BM25 freq map
-func (bm25 *BM25) FreqMap(text string) map[string]float64 {
-	freqMap := make(map[string]float64)
-
-	for _, w := range bm25.Seg.Cut(text, true) {
-		w = strings.TrimSpace(w)
-		if utf8.RuneCountInString(w) < 2 {
-			continue
-		}
-		if bm25.StopWord.IsStopWord(w) {
-			continue
-		}
-
-		if f, ok := freqMap[w]; ok {
-			freqMap[w] = f + 1.0
-		} else {
-			freqMap[w] = 1.0
-		}
-	}
-
-	total := 0.0
-	for _, freq := range freqMap {
-		total += freq
-	}
-
-	for k, v := range freqMap {
-		freqMap[k] = v / total
-	}
-
-	return freqMap
-}
+func (bm25 *BM25) FreqMap(text string) map[string]float64 { _ = "STUB: not implemented"; return nil }
 
 // calculateK Calculate the K value for bm25
-func (bm25 *BM25) calculateK(docNum float64) float64 {
-	t := docNum / bm25.AverageDocLength
-	return bm25.K1 * ((1 - bm25.B) + bm25.B*(t))
-}
+func (bm25 *BM25) calculateK(docNum float64) float64 { _ = "STUB: not implemented"; return 0 }
 
 // calculateWeight calculate the word's weight by BM25
-func (bm25 *BM25) calculateWeight(term string) float64 {
-	tf, idf, _ := bm25.Freq(term)
-	k := bm25.calculateK(float64(utf8.RuneCountInString(term)))
-
-	return idf.(float64) * ((tf * (bm25.K1 + 1)) / (tf + k))
-}
+func (bm25 *BM25) calculateWeight(term string) float64 { _ = "STUB: not implemented"; return 0 }
 
 // ConstructSeg construct segment with weight
 func (bm25 *BM25) ConstructSeg(text string) segment.Segments {
+	_ = "STUB: not implemented"
 	// make segment list by total freq num
-	ws := make([]segment.Segment, 0)
-	for k := range bm25.FreqMap(text) {
-		ws = append(ws, segment.Segment{Text: k, Weight: bm25.calculateWeight(k)})
-	}
-
-	return ws
+	return *new(segment.Segments)
 }
 
 // GetSeg get TFIDF Segmenter
 func (bm25 *BM25) GetSeg() gse.Segmenter {
-	return bm25.Seg
+	_ = "STUB: not implemented"
+
+	// LoadCorpus for calculate the average length of corpus
+	return *new(gse.Segmenter)
 }
 
-// LoadCorpus for calculate the average length of corpus
-func (bm25 *BM25) LoadCorpus(path ...string) (err error) {
-	averLength, err := bm25.Seg.LoadCorpusAverLen(path...)
-	if err != nil {
-		return
-	}
-
-	bm25.AverageDocLength = averLength
-	return
-}
+func (bm25 *BM25) LoadCorpus(path ...string) (err error) { _ = "STUB: not implemented"; return nil }
 
 // NewBM25 create a new BM25
 func NewBM25(bm25Setting *types.BM25Setting) Relevance {
+	_ = "STUB: not implemented"
 	// init value
-	if bm25Setting == nil {
-		bm25Setting = &types.BM25Setting{
-			K1: types.BM25DefaultK1,
-			B:  types.BM25DefaultB,
-		}
-	}
-	if bm25Setting.K1 == 0 {
-		bm25Setting.K1 = types.BM25DefaultK1
-	}
-	if bm25Setting.B == 0 {
-		bm25Setting.K1 = types.BM25DefaultB
-	}
-
-	bm25 := &BM25{
-		K1: bm25Setting.K1,
-		B:  bm25Setting.B,
-	}
-	bm25.StopWord = stopwords.NewStopWord()
-
-	return Relevance(bm25)
+	return *new(Relevance)
 }

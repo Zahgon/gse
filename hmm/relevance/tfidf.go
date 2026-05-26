@@ -15,14 +15,8 @@
 package relevance
 
 import (
-	"sort"
-	"strings"
-	"unicode/utf8"
-
 	"github.com/go-ego/gse"
 	"github.com/go-ego/gse/hmm/segment"
-	"github.com/go-ego/gse/hmm/stopwords"
-	"github.com/go-ego/gse/types"
 )
 
 // TFIDF a measure of importance of a word to a document in a collection.
@@ -37,124 +31,59 @@ type TFIDF struct {
 
 // AddToken add a new word with TFIDF into the dictionary.
 func (t *TFIDF) AddToken(text string, freq float64, pos ...string) error {
-	err := t.Seg.AddToken(text, freq, pos...)
-
-	t.freqs = append(t.freqs, freq)
-	sort.Float64s(t.freqs)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LoadStopWord load stop word for TFIDF
-func (t *TFIDF) LoadStopWord(fileName ...string) error {
-	return t.StopWord.LoadDict(fileName...)
-}
+func (t *TFIDF) LoadStopWord(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadDict load dict for TFIDF seg
-func (t *TFIDF) LoadDict(files ...string) error {
-	if len(files) <= 0 {
-		files = t.Seg.GetTfIdfPath(files...)
-	}
-	dictFiles := make([]*types.LoadDictFile, len(files))
-	for i, v := range files {
-		dictFiles[i] = &types.LoadDictFile{
-			FilePath: v,
-			FileType: types.LoadDictTypeTFIDF,
-		}
-	}
-
-	return t.Seg.LoadTFIDFDict(dictFiles)
-}
+func (t *TFIDF) LoadDict(files ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadDictStr load dict for TFIDF seg
-func (t *TFIDF) LoadDictStr(dictStr string) error {
-	dictFile := &types.LoadDictFile{
-		FilePath: dictStr,
-		FileType: types.LoadDictTypeTFIDF,
-	}
-	return t.Seg.LoadTFIDFDictStr(dictFile)
-}
+func (t *TFIDF) LoadDictStr(dictStr string) error { _ = "STUB: not implemented"; return nil }
 
 // Freq return the TFIDF of the word
 func (t *TFIDF) Freq(key string) (float64, interface{}, bool) {
-	return t.Seg.FindTFIDF(key)
+	_ = "STUB: not implemented"
+	return 0, nil,
+
+		// NumTokens return the TFIDF tokens' num
+		false
 }
 
-// NumTokens return the TFIDF tokens' num
-func (t *TFIDF) NumTokens() int {
-	return t.Seg.Dict.NumTokens()
-}
+func (t *TFIDF) NumTokens() int { _ = "STUB: not implemented"; return 0 }
 
 // TotalFreq return the TFIDF total frequency
-func (t *TFIDF) TotalFreq() float64 {
-	return t.Seg.Dict.TotalFreq()
-}
+func (t *TFIDF) TotalFreq() float64 { _ = "STUB: not implemented"; return 0 }
 
 // FreqMap return the TFIDF freq map
-func (t *TFIDF) FreqMap(text string) map[string]float64 {
-	freqMap := make(map[string]float64)
-
-	for _, w := range t.Seg.Cut(text, true) {
-		w = strings.TrimSpace(w)
-		if utf8.RuneCountInString(w) < 2 {
-			continue
-		}
-		if t.StopWord.IsStopWord(w) {
-			continue
-		}
-
-		if f, ok := freqMap[w]; ok {
-			freqMap[w] = f + 1.0
-		} else {
-			freqMap[w] = 1.0
-		}
-	}
-
-	total := 0.0
-	for _, freq := range freqMap {
-		total += freq
-	}
-
-	for k, v := range freqMap {
-		freqMap[k] = v / total
-	}
-
-	return freqMap
-}
+func (t *TFIDF) FreqMap(text string) map[string]float64 { _ = "STUB: not implemented"; return nil }
 
 // calculateIdf calculate the word's weight by TFIDF
-func (t *TFIDF) calculateWeight(term string) float64 {
-	tf, idf, _ := t.Freq(term)
-	return tf * idf.(float64)
-}
+func (t *TFIDF) calculateWeight(term string) float64 { _ = "STUB: not implemented"; return 0 }
 
 // ConstructSeg construct segment with weight
 func (t *TFIDF) ConstructSeg(text string) segment.Segments {
+	_ = "STUB: not implemented"
 	// make segment list by total freq num
-	ws := make([]segment.Segment, 0)
-	for k := range t.FreqMap(text) {
-		ws = append(ws, segment.Segment{Text: k, Weight: t.calculateWeight(k)})
-	}
-
-	return ws
+	return *new(segment.Segments)
 }
 
 // GetSeg get TFIDF Segmenter
 func (t *TFIDF) GetSeg() gse.Segmenter {
-	return t.Seg
+	_ = "STUB: not implemented"
+
+	// LoadCorpus tf idf no need to load corpus
+	return *new(gse.Segmenter)
 }
 
-// LoadCorpus tf idf no need to load corpus
 func (t *TFIDF) LoadCorpus(path ...string) error {
+	_ = "STUB: not implemented"
+
+	// NewTFIDF create a new TFIDF
 	return nil
 }
 
-// NewTFIDF create a new TFIDF
-func NewTFIDF() Relevance {
-	tfidf := &TFIDF{
-		freqs: make([]float64, 0),
-	}
-
-	tfidf.StopWord = stopwords.NewStopWord()
-
-	return Relevance(tfidf)
-}
+func NewTFIDF() Relevance { _ = "STUB: not implemented"; return *new(Relevance) }

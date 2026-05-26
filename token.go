@@ -47,23 +47,29 @@ type Segment struct {
 
 // Start returns the start byte position of the segment
 func (s *Segment) Start() int {
-	return s.start
+	_ = "STUB: not implemented"
+
+	// End return the end byte position of the segment (not including this)
+	return 0
 }
 
-// End return the end byte position of the segment (not including this)
 func (s *Segment) End() int {
-	return s.end
+	_ = "STUB: not implemented"
+
+	// Token return the segment token information
+	return 0
 }
 
-// Token return the segment token information
 func (s *Segment) Token() *Token {
-	return s.token
+	_ = "STUB: not implemented"
+
+	// Text a string type，used to parse text
+	// 1. a word, such as "world" or "boundary", in English a word is a word
+	// 2. a participle, such as "world" a.k.a. "population"
+	// 3. a text, such as "the world has seven billion people"
+	return nil
 }
 
-// Text a string type，used to parse text
-// 1. a word, such as "world" or "boundary", in English a word is a word
-// 2. a participle, such as "world" a.k.a. "population"
-// 3. a text, such as "the world has seven billion people"
 type Text []byte
 
 // Token define a segment token structure
@@ -93,52 +99,29 @@ type Token struct {
 }
 
 // Text return the text of the segment
-func (token *Token) Text() string {
-	return textSliceToString(token.text)
-}
+func (token *Token) Text() string { _ = "STUB: not implemented"; return "" }
 
 // Freq returns the frequency in the dictionary token
 func (token *Token) Freq() float64 {
-	return token.freq
+	_ = "STUB: not implemented"
+
+	// Pos returns the part of speech in the dictionary token
+	return 0
 }
 
-// Pos returns the part of speech in the dictionary token
 func (token *Token) Pos() string {
-	return token.pos
+	_ = "STUB: not implemented"
+
+	// Segments will segment further subdivisions of the text of this participle,
+	// the participle has two subclauses.
+	//
+	// Subclauses can also have further subclauses forming a tree structure,
+	// which can be traversed to get all the detailed subdivisions of the participle,
+	// which is mainly Used by search engines to perform full-text searches on a piece of text.
+	return ""
 }
 
-// Segments will segment further subdivisions of the text of this participle,
-// the participle has two subclauses.
-//
-// Subclauses can also have further subclauses forming a tree structure,
-// which can be traversed to get all the detailed subdivisions of the participle,
-// which is mainly Used by search engines to perform full-text searches on a piece of text.
-func (token *Token) Segments() []*Segment {
-	return token.segments
-}
+func (token *Token) Segments() []*Segment { _ = "STUB: not implemented"; return nil }
 
 // Equals compare str split tokens
-func (token *Token) Equals(str string) bool {
-	tokenLen := 0
-	for _, t := range token.text {
-		tokenLen += len(t)
-	}
-	if tokenLen != len(str) {
-		return false
-	}
-
-	bytStr := []byte(str)
-	index := 0
-	for i := 0; i < len(token.text); i++ {
-		textArray := []byte(token.text[i])
-		for j := 0; j < len(textArray); j++ {
-			if textArray[j] != bytStr[index] {
-				return false
-			}
-
-			index++
-		}
-	}
-
-	return true
-}
+func (token *Token) Equals(str string) bool { _ = "STUB: not implemented"; return false }

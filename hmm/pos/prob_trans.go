@@ -8,13 +8,7 @@ var inf = math.Inf(-1)
 
 type probTransMap map[uint16]float64
 
-func (m probTransMap) Get(key uint16) float64 {
-	if value, ok := m[key]; ok {
-		return value
-	}
-
-	return inf
-}
+func (m probTransMap) Get(key uint16) float64 { _ = "STUB: not implemented"; return 0 }
 
 var (
 	probTransKeys = []uint16{}

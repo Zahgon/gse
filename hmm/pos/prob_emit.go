@@ -6,13 +6,7 @@ const minFloat = -3.14e100
 
 type runeFloatMap map[rune]float64
 
-func (m runeFloatMap) get(key rune) float64 {
-	if value, ok := m[key]; ok {
-		return value
-	}
-
-	return minFloat
-}
+func (m runeFloatMap) get(key rune) float64 { _ = "STUB: not implemented"; return 0 }
 
 var probEmit = map[uint16]runeFloatMap{
 	100: {

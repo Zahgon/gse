@@ -15,13 +15,8 @@
 package relevance
 
 import (
-	"sort"
-	"strings"
-	"unicode/utf8"
-
 	"github.com/go-ego/gse"
 	"github.com/go-ego/gse/hmm/segment"
-	"github.com/go-ego/gse/hmm/stopwords"
 )
 
 // Idf type a dictionary for all words with the
@@ -38,118 +33,59 @@ type Idf struct {
 
 // AddToken add a new word with IDF into the dictionary.
 func (i *Idf) AddToken(text string, freq float64, pos ...string) error {
-	err := i.Seg.AddToken(text, freq, pos...)
-
-	i.freqs = append(i.freqs, freq)
-	sort.Float64s(i.freqs)
-	i.median = i.freqs[len(i.freqs)/2]
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LoadDict load the idf dictionary
-func (i *Idf) LoadDict(files ...string) error {
-	if len(files) <= 0 {
-		files = i.Seg.GetIdfPath(files...)
-	}
-
-	return i.Seg.LoadDict(files...)
-}
+func (i *Idf) LoadDict(files ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadStopWord load stop word for IDF
-func (i *Idf) LoadStopWord(fileName ...string) error {
-	return i.StopWord.LoadDict(fileName...)
-}
+func (i *Idf) LoadStopWord(fileName ...string) error { _ = "STUB: not implemented"; return nil }
 
 // LoadDictStr load dict for IDF seg
-func (i *Idf) LoadDictStr(dictStr string) error {
-	return i.Seg.LoadDictStr(dictStr)
-}
+func (i *Idf) LoadDictStr(dictStr string) error { _ = "STUB: not implemented"; return nil }
 
 // Freq return the IDF of the word
 func (i *Idf) Freq(key string) (float64, interface{}, bool) {
-	return i.Seg.Find(key)
+	_ = "STUB: not implemented"
+	return 0,
+
+		// NumTokens return the IDF tokens' num
+		nil, false
 }
 
-// NumTokens return the IDF tokens' num
-func (i *Idf) NumTokens() int {
-	return i.Seg.Dict.NumTokens()
-}
+func (i *Idf) NumTokens() int { _ = "STUB: not implemented"; return 0 }
 
 // TotalFreq return the IDF total frequency
-func (i *Idf) TotalFreq() float64 {
-	return i.Seg.Dict.TotalFreq()
-}
+func (i *Idf) TotalFreq() float64 { _ = "STUB: not implemented"; return 0 }
 
 // FreqMap return the IDF freq map
-func (i *Idf) FreqMap(text string) map[string]float64 {
-	freqMap := make(map[string]float64)
-
-	for _, w := range i.Seg.Cut(text, true) {
-		w = strings.TrimSpace(w)
-		if utf8.RuneCountInString(w) < 2 {
-			continue
-		}
-		if i.StopWord.IsStopWord(w) {
-			continue
-		}
-
-		if f, ok := freqMap[w]; ok {
-			freqMap[w] = f + 1.0
-		} else {
-			freqMap[w] = 1.0
-		}
-	}
-
-	total := 0.0
-	for _, freq := range freqMap {
-		total += freq
-	}
-
-	for k, v := range freqMap {
-		freqMap[k] = v / total
-	}
-
-	return freqMap
-}
+func (i *Idf) FreqMap(text string) map[string]float64 { _ = "STUB: not implemented"; return nil }
 
 // calculateWeight calculate the word's weight by IDF
-func (i *Idf) calculateWeight(k string, v float64) float64 {
-	if freq, _, ok := i.Freq(k); ok {
-		return freq * v
-	}
-
-	return i.median * v
-}
+func (i *Idf) calculateWeight(k string, v float64) float64 { _ = "STUB: not implemented"; return 0 }
 
 // ConstructSeg construct segment with weight
 func (i *Idf) ConstructSeg(text string) segment.Segments {
+	_ = "STUB: not implemented"
 	// make segment list by total freq num
-	ws := make([]segment.Segment, 0)
-
-	for k, v := range i.FreqMap(text) {
-		ws = append(ws, segment.Segment{Text: k, Weight: i.calculateWeight(k, v)})
-	}
-
-	return ws
+	return *new(segment.Segments)
 }
 
 // GetSeg get IDF Segmenter
 func (i *Idf) GetSeg() gse.Segmenter {
-	return i.Seg
+	_ = "STUB: not implemented"
+
+	// LoadCorpus idf no need to load corpus
+	return *new(gse.Segmenter)
 }
 
-// LoadCorpus idf no need to load corpus
 func (i *Idf) LoadCorpus(path ...string) error {
+	_ = "STUB: not implemented"
+
+	// NewIdf create a new Idf
 	return nil
 }
 
-// NewIdf create a new Idf
-func NewIdf() Relevance {
-	idf := &Idf{
-		freqs: make([]float64, 0),
-	}
-
-	idf.StopWord = stopwords.NewStopWord()
-
-	return Relevance(idf)
-}
+func NewIdf() Relevance { _ = "STUB: not implemented"; return *new(Relevance) }

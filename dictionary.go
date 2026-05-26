@@ -28,142 +28,46 @@ type Dictionary struct {
 }
 
 // NewDict a new dictionary trie
-func NewDict() *Dictionary {
-	return &Dictionary{trie: cedar.New()}
-}
+func NewDict() *Dictionary { _ = "STUB: not implemented"; return nil }
 
 // MaxTokenLen the maximum length of the dictionary
-func (dict *Dictionary) MaxTokenLen() int {
-	return dict.maxTokenLen
-}
+func (dict *Dictionary) MaxTokenLen() int { _ = "STUB: not implemented"; return 0 }
 
 // NumTokens the number of tokens in the dictionary
-func (dict *Dictionary) NumTokens() int {
-	return len(dict.Tokens)
-}
+func (dict *Dictionary) NumTokens() int { _ = "STUB: not implemented"; return 0 }
 
 // TotalFreq the total frequency of the dictionary
-func (dict *Dictionary) TotalFreq() float64 {
-	return dict.totalFreq
-}
+func (dict *Dictionary) TotalFreq() float64 { _ = "STUB: not implemented"; return 0 }
 
 // AddToken add a token to the dictionary
-func (dict *Dictionary) AddToken(token Token) error {
-	bytes := textSliceToBytes(token.text)
-	val, err := dict.trie.Get(bytes)
-	if err == nil || val > 0 {
-		return nil
-	}
-
-	err = dict.trie.Insert(bytes, dict.NumTokens())
-	if err != nil {
-		return err
-	}
-
-	dict.Tokens = append(dict.Tokens, token)
-	dict.totalFreq += token.freq
-
-	if len(token.text) > dict.maxTokenLen {
-		dict.maxTokenLen = len(token.text)
-	}
-
-	return nil
-}
+func (dict *Dictionary) AddToken(token Token) error { _ = "STUB: not implemented"; return nil }
 
 // RemoveToken remove token in dictionary
-func (dict *Dictionary) RemoveToken(token Token) error {
-	bytes := textSliceToBytes(token.text)
-
-	return dict.trie.Delete(bytes)
-}
+func (dict *Dictionary) RemoveToken(token Token) error { _ = "STUB: not implemented"; return nil }
 
 // LookupTokens finds tokens and words in the dictionary, matching the given pattern
 // and returns the number of tokens
 func (dict *Dictionary) LookupTokens(
 	words []Text, tokens []*Token) (numOfTokens int) {
-	var (
-		id, value int
-		err       error
-	)
-
-	for _, word := range words {
-		id, err = dict.trie.Jump(word, id)
-		if err != nil {
-			break
-		}
-
-		value, err = dict.trie.Value(id)
-		if err == nil {
-			tokens[numOfTokens] = &dict.Tokens[value]
-			numOfTokens++
-		}
-	}
-
-	return
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // Find find the word in the dictionary is non-existent
 // and the word's frequency and pos
 func (dict *Dictionary) Find(word []byte) (float64, string, bool) {
-	var (
-		id, value int
-		freq      float64
-		err       error
-	)
-
-	id, err = dict.trie.Jump(word, id)
-	if err != nil {
-		return 0, "", false
-	}
-
-	value, err = dict.trie.Value(id)
-	if err != nil && id != 0 {
-		return 0, "", true
-	}
-
-	if err != nil {
-		return 0, "", false
-	}
-
-	freq = dict.Tokens[value].freq
-	pos := dict.Tokens[value].pos
-	return freq, pos, true
+	_ = "STUB: not implemented"
+	return 0, "", false
 }
 
 func (dict *Dictionary) FindTFIDF(word []byte) (float64, float64, bool) {
-	var (
-		id, value int
-		freq      float64
-		err       error
-	)
-
-	id, err = dict.trie.Jump(word, id)
-	if err != nil {
-		return 0, 0, false
-	}
-
-	value, err = dict.trie.Value(id)
-	if err != nil && id != 0 {
-		return 0, 0, true
-	}
-
-	if err != nil {
-		return 0, 0, false
-	}
-
-	freq = dict.Tokens[value].freq
-	inverseFreq := dict.Tokens[value].inverseFreq
-	return freq, inverseFreq, true
+	_ = "STUB: not implemented"
+	return 0, 0, false
 }
 
 // Value find word in the dictionary
 // return the word's value and id
 func (dict *Dictionary) Value(word []byte) (val, id int, err error) {
-	id, err = dict.trie.Jump(word, id)
-	if err != nil {
-		return 0, id, err
-	}
-
-	val, err = dict.trie.Value(id)
-	return
+	_ = "STUB: not implemented"
+	return 0, 0, nil
 }
